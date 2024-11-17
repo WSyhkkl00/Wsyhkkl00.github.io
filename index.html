@@ -159,7 +159,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/11/17/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2024/11/17/hello-world/" class="post-title-link" itemprop="url">Untitled</a>
         </h2>
 
         <div class="post-meta">
@@ -170,7 +170,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-11-17 00:50:48 / Modified: 01:44:24" itemprop="dateCreated datePublished" datetime="2024-11-17T00:50:48+08:00">2024-11-17</time>
+              <time title="Created: 2024-11-17 00:50:48 / Modified: 13:51:36" itemprop="dateCreated datePublished" datetime="2024-11-17T00:50:48+08:00">2024-11-17</time>
             </span>
 
           
@@ -184,19 +184,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+          <p>网络拓扑</p>
+<p>总线型、环形、P2P、星系、树形拓扑</p>
+<p>CAN的历史</p>
+<p>CAN 最初出现在80年代末的<strong>汽车工业</strong>中，由德国 Bosch 公司最先提出。当时，由于消费者对于汽车功能的要求越来越多，而这些功能的实现大多是基于电子操作的，这就使得电子装置之间的通讯越来越复杂，同时意味着需要更多的连接信号线。提出 CAN 总线的最初动机就是为了解决现代汽车中庞大的电子控制装置之间的通讯，<strong>减少不断增加的信号线</strong>。于是，他们设计了一个<strong>单一的网络总线</strong>，所有的外围器件可以被挂接在该总线上。1993年，CAN 已成为国际标准 ISO11898(高速应用)和 ISO11519（低速应用）。</p>
+<h2 id="帧类型"><a href="#帧类型" class="headerlink" title="帧类型"></a>帧类型</h2><ol>
+<li>数据帧：（广播式）发送设备主动发送数据</li>
+<li>遥控帧：（请求式）接收设备主动请求数据</li>
+<li>错误帧：某个设备检测出错误时向其他设备通知错误</li>
+<li>过载帧：接收设备通知其尚未做好接收准备</li>
+<li>帧间隔：用于将数据帧、遥控帧和前面的帧分开来</li>
+</ol>
+<h2 id="数据帧"><a href="#数据帧" class="headerlink" title="数据帧"></a>数据帧</h2><h3 id="标准格式"><a href="#标准格式" class="headerlink" title="标准格式"></a>标准格式</h3><p>空闲状态：隐性（被2*220欧电阻拉至同一电平）</p>
+<h4 id="帧起始"><a href="#帧起始" class="headerlink" title="帧起始"></a>帧起始</h4><p>SOF（START OF FRAME）：1位、必须是<strong>显性电平0</strong>，张开总线，目的是<strong>打破宁静</strong>(类似于串口的起始位、提醒接收方我开始发消息了）</p>
+<h4 id="仲裁段"><a href="#仲裁段" class="headerlink" title="仲裁段"></a>仲裁段</h4><p>ID：11位，作用是</p>
+<p>1.表现报文ID的功能  </p>
+<p>2.区分优先级，ID小的报文优先发送，ID大的报文等待下一次空闲再发送</p>
+<p>RTR（Remote Transmission Request）远程发送请求。1位，用于区分是数据帧（显性0）还是遥控帧（隐形1） 相同id的数据帧和遥控帧，数据帧的优先级大于遥控帧</p>
+<blockquote>
+<p>IIC也有多主机模式，同时IIC仲裁段是7位从机地址+1位读写位。CAN取消了从机地址的概念，换成所谓报文ID概念，如果说IIC是对从机地址进行分配，CAN就是对报文ID进行分配</p>
+</blockquote>
+<h4 id="控制段"><a href="#控制段" class="headerlink" title="控制段"></a>控制段</h4><h5 id="IDE"><a href="#IDE" class="headerlink" title="IDE"></a><strong>IDE</strong></h5><p>Identifier Extension 标志符扩展位，用于<strong>区分标准格式还是拓展格式</strong>，这一位告诉从机，你是要用标准格式来解析后面的数据还是要用拓展格式来解析后面的数据，其中标准格式为显性0，拓展格式为隐性1</p>
+<h5 id="r0"><a href="#r0" class="headerlink" title="r0"></a>r0</h5><p>Reserve,(标准格式) 保留位，目前没有用，显性0（为什么是0，因为仲裁时0的优先级更高），为了以后升级用（以后说不定要发明出超级拓展格式，这个时候，保留位就能区分是拓展格式还是超级拓展格式了）</p>
+<h5 id="DLC"><a href="#DLC" class="headerlink" title="DLC"></a>DLC</h5><p>（Data Length Code）:4位，跟游戏的的DLC（Downloadable Content 可下载内容）做区分：表示数据域的长度 </p>
+<p>0001:一个字节</p>
+<p>1000：八个字节</p>
+<h4 id="数据段"><a href="#数据段" class="headerlink" title="数据段"></a>数据段</h4><p>长度由DLC决定，一般是八个字节</p>
+<h4 id="CRC段"><a href="#CRC段" class="headerlink" title="CRC段"></a>CRC段</h4><p>15位，用来校验从SOF到DATA的这么长一串</p>
+<h5 id="CRC界定符"><a href="#CRC界定符" class="headerlink" title="CRC界定符"></a>CRC界定符</h5><p>1位，隐性电平</p>
+<h4 id="ACK段"><a href="#ACK段" class="headerlink" title="ACK段"></a>ACK段</h4><p>ACK槽，发送方释放总线，总线回归隐性1，要是有接收方应答，就把总线收紧（相当于<strong>此时接收方有控制总线的权力</strong>），变成显性0，这时发送方就放心了：我的数据被收到了</p>
+<p>ACK界定段：为了给权力交接腾出时间，1位，隐性1</p>
+<h4 id="帧结束"><a href="#帧结束" class="headerlink" title="帧结束"></a>帧结束</h4><p>EOF（END OF FRAME），7个隐性1</p>
+<p>备注：</p>
+<p>整段数据帧波形：<strong>波形是由发送方和接收方共同完成的</strong>，实际上数据帧的一帧数据，并不是发完接收方才收的，而是我发一位，你收一位。</p>
+<p>为了<strong>兼容老版本</strong>，CAN2.0扩展帧设计的并不优雅（ID段被SRR位(SRR位无实际作用，但是要保持隐性1，目的是<strong>确保标准帧优先级始终大于拓展帧优先级</strong>)和IDE位拦腰截断）</p>
+<h2 id="遥控帧"><a href="#遥控帧" class="headerlink" title="遥控帧"></a>遥控帧</h2><p>CAN总线的数据，一般是发送方以一定发送周期自觉广播出来，但是如果<strong>广播太频繁，浪费总线资源</strong>。<strong>广播太慢，有些消息接收方又拿不到</strong>。这样我们规定发送方不再主动广播数据，而是接收方主动请求（遥控帧也是主动广播出来的，如果总线上有设备有这个id的数据，会响应）</p>
+<p>和数据帧的区别：</p>
+<ol>
+<li>无数据段</li>
+<li>RTR为隐性1（ 数据帧为0, RTR（Remote Transmission Request）远程发送请求。1位，用于区分是数据帧（显性0）还是遥控帧（隐形1） 相同id的数据帧和遥控帧，数据帧的优先级大于遥控帧）</li>
+</ol>
+<p>适用场景：</p>
+<p>适用于消息不频繁的场景。</p>
+<p>请求方发送遥控帧，遥控帧的ID表示要请求的数据，响应请求的一方，通过相同ID的数据帧来反馈数据</p>
+<h2 id="错误帧"><a href="#错误帧" class="headerlink" title="错误帧"></a>错误帧</h2><h2 id="过载帧"><a href="#过载帧" class="headerlink" title="过载帧"></a>过载帧</h2><h2 id="帧间隔"><a href="#帧间隔" class="headerlink" title="帧间隔"></a>帧间隔</h2><h2 id="位填充规则"><a href="#位填充规则" class="headerlink" title="位填充规则"></a>位填充规则</h2><p>数据帧内每五个一样电平，加入一个相反电平</p>
+<p>作用：</p>
+<ol>
+<li>防止波形无变化，导致接收方判断错误（比如我数据帧需要发送64个1，如果没有位填充规则导致的电平变化，也许会导致我接收方误判成65个1，这样直接会在CRC里报错，<em><strong>类似于高速公路、隧道为什么不设计成笔直的</strong></em>）</li>
+<li>将正常数据流与错误帧和过载帧区分</li>
+<li>防止被误认成总线空闲</li>
+</ol>
+<h2 id="采样规则"><a href="#采样规则" class="headerlink" title="采样规则"></a>采样规则</h2><p>接收方数据采样时可能会遇到的问题</p>
+<h2 id="位时序和采样点"><a href="#位时序和采样点" class="headerlink" title="位时序和采样点"></a>位时序和采样点</h2><p>除了SS是固定1Tq，其他都是自己设置的，最终的波特率实际上是配出来的</p>
+<h2 id="总线是如何进行资源分配（帧仲裁）"><a href="#总线是如何进行资源分配（帧仲裁）" class="headerlink" title="总线是如何进行资源分配（帧仲裁）"></a>总线是如何进行资源分配（帧仲裁）</h2><p>仲裁两原则：<strong>先到先得、非破坏性仲裁</strong></p>
+<p><strong>先到先得</strong>：A设备数据帧报文已经发出，B、C、D设备无法发送，直到总线空闲（连续11个隐性电平 一般是ACK界定符+7为EOF+3位帧间隔）</p>
+<p><strong>非破坏性原则</strong>：总线空闲后，刚才说到的BCD三个设备会蜂拥而上，这是BCD会同时发送各自的帧（数据帧、遥控帧），这时我们应该如何决定总线最终呈现的帧的电平？</p>
+<p>先说<strong>非破坏性原则</strong>的结论：</p>
+<p><strong>报文ID小&gt;报文ID大</strong></p>
+<p><strong>标准格式&gt;拓展模式</strong></p>
+<p><strong>数据帧&gt;遥控帧</strong></p>
+<p><strong>ID不同时：ID越小优先级越高</strong></p>
+<p><strong>ID相同时：优先级排名：标准数据帧&gt;标准遥控帧&gt;拓展数据帧&gt;拓展遥控帧</strong></p>
+<p>为什么？<strong>回读机制</strong>（线与特性）感受到竞争者的报文退出竞争、ACK也利用了回读机制</p>
 
       
     </div>
