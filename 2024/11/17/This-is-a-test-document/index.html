@@ -28,7 +28,7 @@
 <meta property="og:description" content="AT89S52和AT89S51的区别：  52比51新增加了6个SFR：T2CON、T2MOD、RCAP2L、RCAP2H、TL2和TH2都和新增加的定时器T2有关 52片内数据存储器RAM是256B，51是128B 52 8KB flash rom，51 4KB flash rom S51、S52工作频率上限是33mhz，C51上限是24mhz  易错题 可编程并行接口芯片8255具有一个控制口">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-11-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-11-17T14:51:44.962Z">
+<meta property="article:modified_time" content="2024-11-17T15:56:35.289Z">
 <meta property="article:author" content="WSyhkkl00">
 <meta name="twitter:card" content="summary">
 
@@ -174,7 +174,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-11-17 00:00:00 / Modified: 22:51:44" itemprop="dateCreated datePublished" datetime="2024-11-17T00:00:00+08:00">2024-11-17</time>
+              <time title="Created: 2024-11-17 00:00:00 / Modified: 23:56:35" itemprop="dateCreated datePublished" datetime="2024-11-17T00:00:00+08:00">2024-11-17</time>
             </span>
 
           
@@ -205,7 +205,7 @@
 <p>PUSH：sp先自动加一，再把1字节的数据压入堆栈</p>
 <p>POP：先将栈顶内容弹出，sp再自动减一</p>
 <p>DA转换器的指标</p>
-<p>1.分辨率 = 输出满刻度与2的n次方之比（n为DA转换器的二进制位数），假设8位的DA转换器若满量程输出为10V，则分辨率为39.1mv，即输入的二进制最低位数字量变化可引起输出的模拟电压变化39.1mv。</p>
+<p>1.分辨率 = <strong>输出满刻度与2的n次方之比</strong>（n为DA转换器的二进制位数），假设8位的DA转换器若满量程输出为10V，则分辨率为39.1mv，即输入的二进制最低位数字量变化可引起输出的模拟电压变化39.1mv。</p>
 <p>2.建立时间，用来描述DA转换器转换速度的参数</p>
 <p>3.转换精度</p>
 <p>DAC0832</p>
@@ -215,7 +215,10 @@
 <p>可双缓冲输出，单缓冲输出，或者直接数字输入</p>
 <p>单一电源供电</p>
 <p>微处理器如何定义？<br>微处理器是一个独立的 IC 芯片，内含算术运算和逻辑运算部件（ALU），不含存储器、I/O 接口等，只能接受机器语言。</p>
-<p>DPTR</p>
+<p>并行通信通常使用多根数据线将数据字节的各个位同时传送，每一位数据都需要一根数据线，此外还需要一条或者几条控制信号线</p>
+<p>优缺点：并行通信<strong>相对传输速度快</strong>。但是由于传输线较多，<strong>长距离传送时成本高</strong>，这种方式适合<strong>短距离的数据传输</strong>。</p>
+<p>并行速度快、线多、成本高、距离短、适合短距离传输</p>
+<p>串行速度相对慢、线少、成本低、距离长、适合长距离数据传输</p>
 
     </div>
 
