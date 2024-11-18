@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"wsyhkkl00.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"wsyhkkl00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -178,10 +178,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-11-17 00:00:00 / Modified: 23:56:35" itemprop="dateCreated datePublished" datetime="2024-11-17T00:00:00+08:00">2024-11-17</time>
+              <time title="Created: 2024-11-17 00:00:00" itemprop="dateCreated datePublished" datetime="2024-11-17T00:00:00+08:00">2024-11-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-11-18 22:51:56" itemprop="dateModified" datetime="2024-11-18T22:51:56+08:00">2024-11-18</time>
+              </span>
 
           
 
@@ -194,14 +200,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>AT89S52和AT89S51的区别：</p>
+          <h2 id="11-17"><a href="#11-17" class="headerlink" title="11.17"></a>11.17</h2><p>AT89S52和AT89S51的区别：</p>
 <ol>
 <li>52比51新增加了6个SFR：T2CON、T2MOD、RCAP2L、RCAP2H、TL2和TH2都和新增加的定时器T2有关</li>
 <li>52片内数据存储器RAM是256B，51是128B</li>
 <li>52 8KB flash rom，51 4KB flash rom</li>
 <li>S51、S52工作频率上限是33mhz，C51上限是24mhz</li>
 </ol>
-<p>易错题</p>
 <p>可编程并行接口芯片8255具有<strong>一个控制口</strong>，<strong>三个IO口</strong></p>
 <p>当单片机复位后，PSW = 00H，SP = 07H P0~P3 = FFH</p>
 <p>当 AT89S52 执行 MOVC A， @A+ DPTR 指令时，伴随着PSEN控制信号有效</p>
@@ -225,6 +230,11 @@
 <p>优缺点：并行通信<strong>相对传输速度快</strong>。但是由于传输线较多，<strong>长距离传送时成本高</strong>，这种方式适合<strong>短距离的数据传输</strong>。</p>
 <p>并行速度快、线多、成本高、距离短、适合短距离传输</p>
 <p>串行速度相对慢、线少、成本低、距离长、适合长距离数据传输</p>
+<h2 id="11-18"><a href="#11-18" class="headerlink" title="11.18"></a>11.18</h2><p>DAC0832输出的是电流，不是电压，要想输出电压，就得在输出端再接一个运算放大器，才能输出电压</p>
+<p>ADC0809不能同时输出八路电压，因为0809芯片内部带有锁存功能的8选1的模拟开关，C、B、A端控制8路模拟输入通道的切换</p>
+<p>ADC0809转换结束信号EOC。当AD转换已经开始，该引脚为低电平，当AD转换结束后，引脚为低电平，可以利用“转换结束”信号EOC向AT89S52发出中断请求</p>
+<p>DAC0832 的 DI0~DI7 只能与 AT89S51 的 P0 端口相连接，错！<br>因为DAC0832可以接8255，再接DAC0832</p>
+<p>DAC0832与运算放大器配套使用输出0-5V的直流电压，则其Vref = -5V</p>
 
       
     </div>
@@ -459,7 +469,7 @@ y=x^2</script><h2 id="帧间隔"><a href="#帧间隔" class="headerlink" title="
   </span>
   <span class="author" itemprop="copyrightHolder">WSyhkkl00</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
         
@@ -485,7 +495,7 @@ y=x^2</script><h2 id="帧间隔"><a href="#帧间隔" class="headerlink" title="
 <script src="/js/motion.js"></script>
 
 
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
