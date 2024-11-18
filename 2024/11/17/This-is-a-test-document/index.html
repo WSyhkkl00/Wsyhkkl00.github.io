@@ -28,7 +28,7 @@
 <meta property="og:description" content="11.17AT89S52和AT89S51的区别：  52比51新增加了6个SFR：T2CON、T2MOD、RCAP2L、RCAP2H、TL2和TH2都和新增加的定时器T2有关 52片内数据存储器RAM是256B，51是128B 52 8KB flash rom，51 4KB flash rom S51、S52工作频率上限是33mhz，C51上限是24mhz  可编程并行接口芯片8255具有一个控制">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-11-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-11-18T14:51:56.891Z">
+<meta property="article:modified_time" content="2024-11-18T18:41:56.463Z">
 <meta property="article:author" content="WSyhkkl00">
 <meta name="twitter:card" content="summary">
 
@@ -190,7 +190,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-11-18 22:51:56" itemprop="dateModified" datetime="2024-11-18T22:51:56+08:00">2024-11-18</time>
+                <time title="Modified: 2024-11-19 02:41:56" itemprop="dateModified" datetime="2024-11-19T02:41:56+08:00">2024-11-19</time>
               </span>
 
           
@@ -239,6 +239,14 @@
 <p>ADC0809转换结束信号EOC。当AD转换已经开始，该引脚为低电平，当AD转换结束后，引脚为低电平，可以利用“转换结束”信号EOC向AT89S52发出中断请求</p>
 <p>DAC0832 的 DI0~DI7 只能与 AT89S51 的 P0 端口相连接，错！<br>因为DAC0832可以接8255，再接DAC0832</p>
 <p>DAC0832与运算放大器配套使用输出0-5V的直流电压，则其Vref = -5V</p>
+<p>一个CALL等于两个PUSH，一个RET等于两个POP</p>
+<p>ADC0809的数字量输出引脚D0-D7可以直接挂在CPU的P0口</p>
+<p>EPROM芯片：</p>
+<p>2764的存储容量是8K（8K*8bit）</p>
+<p>27128的存储容量是16K(16K*8bit)</p>
+<p>27256的存储容量是32K(32K*8bit)</p>
+<h1 id="必出题"><a href="#必出题" class="headerlink" title="必出题"></a>必出题</h1><p>设 8255 芯片的控制口地址为 3FFFH，PC 口地址为 3FFEH，使用 8255的 PC5 产生 2000（HEX 码为 07 D0）个连续的负脉冲，占空比 1:1，周期 2s，已知延时 1s 的子程序叫 DELAY1S。请编制相关软件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">MOV DPTR,#3FFFH</span><br><span class="line"></span><br><span class="line">MOV A,#00001011B</span><br><span class="line"></span><br><span class="line">MOVX @DPTR,A</span><br><span class="line"></span><br><span class="line">MOV 31H,#07H</span><br><span class="line"></span><br><span class="line">MOV 30H,#0D0H</span><br><span class="line"></span><br><span class="line">LOOP: MOV A,#00001010B</span><br><span class="line"></span><br><span class="line">MOVX @DPTR,A</span><br><span class="line"></span><br><span class="line">CALL DELAY1S</span><br><span class="line"></span><br><span class="line">MOV A,#00001011B</span><br><span class="line"></span><br><span class="line">MOVX @DPTR,A</span><br><span class="line"></span><br><span class="line">CALL DELAY1S</span><br><span class="line"></span><br><span class="line">CLR C</span><br><span class="line"></span><br><span class="line">MOV A,30H</span><br><span class="line"></span><br><span class="line">SUBB A,#01H</span><br><span class="line"></span><br><span class="line">MOV 30H,A</span><br><span class="line"></span><br><span class="line">MOV A,31H</span><br><span class="line"></span><br><span class="line">SUBB A,#00H</span><br><span class="line"></span><br><span class="line">MOV 31H,A</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ORL A,30H</span><br><span class="line"></span><br><span class="line">JNZ LOOP</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -316,7 +324,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-17"><span class="nav-number">1.</span> <span class="nav-text">11.17</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-18"><span class="nav-number">2.</span> <span class="nav-text">11.18</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-17"><span class="nav-number">1.</span> <span class="nav-text">11.17</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-18"><span class="nav-number">2.</span> <span class="nav-text">11.18</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%85%E5%87%BA%E9%A2%98"><span class="nav-number"></span> <span class="nav-text">必出题</span></a></div>
       </div>
       <!--/noindex-->
 
