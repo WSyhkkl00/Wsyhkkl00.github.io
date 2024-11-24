@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"wsyhkkl00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="11.17AT89S52和AT89S51的区别：  52比51新增加了6个SFR：T2CON、T2MOD、RCAP2L、RCAP2H、TL2和TH2都和新增加的定时器T2有关 52片内数据存储器RAM是256B，51是128B 52 8KB flash rom，51 4KB flash rom S51、S52工作频率上限是33mhz，C51上限是24mhz  可编程并行接口芯片8255具有一个控制">
+  <meta name="description" content="11.17">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jehn&#39;s Blog">
 <meta property="og:url" content="https://wsyhkkl00.github.io/2024/11/17/This-is-a-test-document/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="11.17AT89S52和AT89S51的区别：  52比51新增加了6个SFR：T2CON、T2MOD、RCAP2L、RCAP2H、TL2和TH2都和新增加的定时器T2有关 52片内数据存储器RAM是256B，51是128B 52 8KB flash rom，51 4KB flash rom S51、S52工作频率上限是33mhz，C51上限是24mhz  可编程并行接口芯片8255具有一个控制">
+<meta property="og:description" content="11.17">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-11-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-11-18T18:41:56.463Z">
+<meta property="article:modified_time" content="2024-11-24T10:00:30.510Z">
 <meta property="article:author" content="WSyhkkl00">
 <meta name="twitter:card" content="summary">
 
@@ -190,7 +190,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-11-19 02:41:56" itemprop="dateModified" datetime="2024-11-19T02:41:56+08:00">2024-11-19</time>
+                <time title="Modified: 2024-11-24 18:00:30" itemprop="dateModified" datetime="2024-11-24T18:00:30+08:00">2024-11-24</time>
               </span>
 
           
@@ -204,50 +204,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="11-17"><a href="#11-17" class="headerlink" title="11.17"></a>11.17</h2><p>AT89S52和AT89S51的区别：</p>
-<ol>
-<li>52比51新增加了6个SFR：T2CON、T2MOD、RCAP2L、RCAP2H、TL2和TH2都和新增加的定时器T2有关</li>
-<li>52片内数据存储器RAM是256B，51是128B</li>
-<li>52 8KB flash rom，51 4KB flash rom</li>
-<li>S51、S52工作频率上限是33mhz，C51上限是24mhz</li>
-</ol>
-<p>可编程并行接口芯片8255具有<strong>一个控制口</strong>，<strong>三个IO口</strong></p>
-<p>当单片机复位后，PSW = 00H，SP = 07H P0~P3 = FFH</p>
-<p>当 AT89S52 执行 MOVC A， @A+ DPTR 指令时，伴随着PSEN控制信号有效</p>
-<p>在 AT89S52 /S51的中断请求源中，需要外加电路实现中断撤销的是<strong>电平方式的外部中断请求</strong></p>
-<p>32个SFR，可位寻址的有 P0 , P1 , P2 , P3 , SCON , TCON , T2CON , IE ,IP, A,B,PSW</p>
-<p>堆栈的功能：保护断点和现场保护</p>
-<p>PUSH：sp先自动加一，再把1字节的数据压入堆栈</p>
-<p>POP：先将栈顶内容弹出，sp再自动减一</p>
-<p>DA转换器的指标</p>
-<p>1.分辨率 = <strong>输出满刻度与2的n次方之比</strong>（n为DA转换器的二进制位数），假设8位的DA转换器若满量程输出为10V，则分辨率为39.1mv，即输入的二进制最低位数字量变化可引起输出的模拟电压变化39.1mv。</p>
-<p>2.建立时间，用来描述DA转换器转换速度的参数</p>
-<p>3.转换精度</p>
-<p>DAC0832</p>
-<p>主要特性：</p>
-<p>分辨率为8位</p>
-<p>电流输出，建立时间为1us</p>
-<p>可双缓冲输出，单缓冲输出，或者直接数字输入</p>
-<p>单一电源供电</p>
-<p>微处理器如何定义？<br>微处理器是一个独立的 IC 芯片，内含算术运算和逻辑运算部件（ALU），不含存储器、I/O 接口等，只能接受机器语言。</p>
-<p>并行通信通常使用多根数据线将数据字节的各个位同时传送，每一位数据都需要一根数据线，此外还需要一条或者几条控制信号线</p>
-<p>优缺点：并行通信<strong>相对传输速度快</strong>。但是由于传输线较多，<strong>长距离传送时成本高</strong>，这种方式适合<strong>短距离的数据传输</strong>。</p>
-<p>并行速度快、线多、成本高、距离短、适合短距离传输</p>
-<p>串行速度相对慢、线少、成本低、距离长、适合长距离数据传输</p>
-<h2 id="11-18"><a href="#11-18" class="headerlink" title="11.18"></a>11.18</h2><p>DAC0832输出的是电流，不是电压，要想输出电压，就得在输出端再接一个运算放大器，才能输出电压</p>
-<p>ADC0809不能同时输出八路电压，因为0809芯片内部带有锁存功能的8选1的模拟开关，C、B、A端控制8路模拟输入通道的切换</p>
-<p>ADC0809转换结束信号EOC。当AD转换已经开始，该引脚为低电平，当AD转换结束后，引脚为低电平，可以利用“转换结束”信号EOC向AT89S52发出中断请求</p>
-<p>DAC0832 的 DI0~DI7 只能与 AT89S51 的 P0 端口相连接，错！<br>因为DAC0832可以接8255，再接DAC0832</p>
-<p>DAC0832与运算放大器配套使用输出0-5V的直流电压，则其Vref = -5V</p>
-<p>一个CALL等于两个PUSH，一个RET等于两个POP</p>
-<p>ADC0809的数字量输出引脚D0-D7可以直接挂在CPU的P0口</p>
-<p>EPROM芯片：</p>
-<p>2764的存储容量是8K（8K*8bit）</p>
-<p>27128的存储容量是16K(16K*8bit)</p>
-<p>27256的存储容量是32K(32K*8bit)</p>
-<h1 id="必出题"><a href="#必出题" class="headerlink" title="必出题"></a>必出题</h1><p>设 8255 芯片的控制口地址为 3FFFH，PC 口地址为 3FFEH，使用 8255的 PC5 产生 2000（HEX 码为 07 D0）个连续的负脉冲，占空比 1:1，周期 2s，已知延时 1s 的子程序叫 DELAY1S。请编制相关软件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">MOV DPTR,#3FFFH</span><br><span class="line"></span><br><span class="line">MOV A,#00001011B</span><br><span class="line"></span><br><span class="line">MOVX @DPTR,A</span><br><span class="line"></span><br><span class="line">MOV 31H,#07H</span><br><span class="line"></span><br><span class="line">MOV 30H,#0D0H</span><br><span class="line"></span><br><span class="line">LOOP: MOV A,#00001010B</span><br><span class="line"></span><br><span class="line">MOVX @DPTR,A</span><br><span class="line"></span><br><span class="line">CALL DELAY1S</span><br><span class="line"></span><br><span class="line">MOV A,#00001011B</span><br><span class="line"></span><br><span class="line">MOVX @DPTR,A</span><br><span class="line"></span><br><span class="line">CALL DELAY1S</span><br><span class="line"></span><br><span class="line">CLR C</span><br><span class="line"></span><br><span class="line">MOV A,30H</span><br><span class="line"></span><br><span class="line">SUBB A,#01H</span><br><span class="line"></span><br><span class="line">MOV 30H,A</span><br><span class="line"></span><br><span class="line">MOV A,31H</span><br><span class="line"></span><br><span class="line">SUBB A,#00H</span><br><span class="line"></span><br><span class="line">MOV 31H,A</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ORL A,30H</span><br><span class="line"></span><br><span class="line">JNZ LOOP</span><br></pre></td></tr></table></figure>
-
+        <h2 id="11-17"><a href="#11-17" class="headerlink" title="11.17"></a>11.17</h2>
     </div>
 
     
@@ -324,7 +281,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-17"><span class="nav-number">1.</span> <span class="nav-text">11.17</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-18"><span class="nav-number">2.</span> <span class="nav-text">11.18</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%85%E5%87%BA%E9%A2%98"><span class="nav-number"></span> <span class="nav-text">必出题</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-17"><span class="nav-number">1.</span> <span class="nav-text">11.17</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
