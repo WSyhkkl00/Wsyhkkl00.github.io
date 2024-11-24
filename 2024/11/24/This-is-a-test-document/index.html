@@ -20,28 +20,32 @@
     var CONFIG = {"hostname":"wsyhkkl00.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://wsyhkkl00.github.io/index.html">
+  <meta name="description" content="静态分配和动态分配宏定义configSUPPORT_STATIC_ALLOCATION： ① config表示这是在 FreeRTOSConfig.h 文件中定义，控制 FreeRTOS 的功能启用与否 ② SUPPORT表明该配置宏是用来决定是否支持某种功能，而不是直接实现功能 ③ STATIC_ALLOCATION强调此选项是控制是否支持静态内存分配的开关 静态分配方式：用户需要自己提供任务堆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Freertos源码解析">
+<meta property="og:url" content="https://wsyhkkl00.github.io/2024/11/24/This-is-a-test-document/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="静态分配和动态分配宏定义configSUPPORT_STATIC_ALLOCATION： ① config表示这是在 FreeRTOSConfig.h 文件中定义，控制 FreeRTOS 的功能启用与否 ② SUPPORT表明该配置宏是用来决定是否支持某种功能，而不是直接实现功能 ③ STATIC_ALLOCATION强调此选项是控制是否支持静态内存分配的开关 静态分配方式：用户需要自己提供任务堆">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-11-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-24T10:14:11.039Z">
 <meta property="article:author" content="WSyhkkl00">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://wsyhkkl00.github.io/">
+<link rel="canonical" href="https://wsyhkkl00.github.io/2024/11/24/This-is-a-test-document/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Hexo</title>
+  <title>Freertos源码解析 | Hexo</title>
   
 
 
@@ -149,9 +153,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -167,10 +172,9 @@
       <meta itemprop="name" content="Hexo">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/24/This-is-a-test-document/" class="post-title-link" itemprop="url">Freertos源码解析</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Freertos源码解析
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -194,7 +198,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="静态分配和动态分配"><a href="#静态分配和动态分配" class="headerlink" title="静态分配和动态分配"></a>静态分配和动态分配</h2><h3 id="宏定义"><a href="#宏定义" class="headerlink" title="宏定义"></a>宏定义</h3><p><code>configSUPPORT_STATIC_ALLOCATION</code>：</p>
+        <h2 id="静态分配和动态分配"><a href="#静态分配和动态分配" class="headerlink" title="静态分配和动态分配"></a>静态分配和动态分配</h2><h3 id="宏定义"><a href="#宏定义" class="headerlink" title="宏定义"></a>宏定义</h3><p><code>configSUPPORT_STATIC_ALLOCATION</code>：</p>
 <p>① config表示这是在 <code>FreeRTOSConfig.h</code> 文件中定义，控制 FreeRTOS 的功能启用与否</p>
 <p>② SUPPORT表明该配置宏是用来<strong>决定是否支持某种功能</strong>，而不是直接实现功能</p>
 <p>③ STATIC_ALLOCATION强调此选项是控制是否支持静态内存分配的开关</p>
@@ -212,209 +216,30 @@
 <p>存在风险：<br>如果堆内存不足，任务创建会失败。<br>长时间运行可能导致内存碎片问题，影响系统可靠性。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;FreeRTOS.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;task.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskFunction</span><span class="params">(<span class="type">void</span> *pvParameters)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (;;)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 任务逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 创建任务（动态分配）</span></span><br><span class="line">    TaskHandle_t xTaskHandle = <span class="literal">NULL</span>;</span><br><span class="line">    xTaskCreate(</span><br><span class="line">        vTaskFunction,             <span class="comment">// 任务函数</span></span><br><span class="line">        <span class="string">&quot;TaskName&quot;</span>,                <span class="comment">// 任务名称</span></span><br><span class="line">        configMINIMAL_STACK_SIZE,  <span class="comment">// 堆栈大小</span></span><br><span class="line">        <span class="literal">NULL</span>,                      <span class="comment">// 任务参数</span></span><br><span class="line">        tskIDLE_PRIORITY,          <span class="comment">// 优先级</span></span><br><span class="line">        &amp;xTaskHandle               <span class="comment">// 任务句柄</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 启动调度器</span></span><br><span class="line">    vTaskStartScheduler();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://wsyhkkl00.github.io/2024/11/17/hello-world/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="WSyhkkl00">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/11/17/hello-world/" class="post-title-link" itemprop="url">CAN通信基础教程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-17 00:00:00" itemprop="dateCreated datePublished" datetime="2024-11-17T00:00:00+08:00">2024-11-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-11-19 19:49:49" itemprop="dateModified" datetime="2024-11-19T19:49:49+08:00">2024-11-19</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="CAN通信"><a href="#CAN通信" class="headerlink" title="CAN通信"></a>CAN通信</h1><h1 id="CAN通信基础教程"><a href="#CAN通信基础教程" class="headerlink" title="CAN通信基础教程"></a>CAN通信基础教程</h1><h2 id="网络拓扑"><a href="#网络拓扑" class="headerlink" title="网络拓扑"></a>网络拓扑</h2><p>CAN 通信支持多种网络拓扑结构：</p>
-<ul>
-<li><strong>总线型</strong>（Bus Topology）：最常见的拓扑结构，设备挂载在一根主总线上，适合点到多点通信。</li>
-<li><strong>环型</strong>（Ring Topology）：少见，主要用于容错和冗余设计。</li>
-<li><strong>点对点（P2P Topology）</strong>：简单的两个节点直接相连。</li>
-<li><strong>星型</strong>（Star Topology）：通过集线器连接多个节点，布线复杂，成本较高。</li>
-<li><strong>树型</strong>（Tree Topology）：适合分级的通信结构，常见于复杂分布式网络。</li>
-</ul>
-<h2 id="CAN-的历史"><a href="#CAN-的历史" class="headerlink" title="CAN 的历史"></a>CAN 的历史</h2><p>CAN 最初由德国 Bosch 公司在 20 世纪 80 年代末提出，专为 <strong>汽车工业</strong>设计，旨在简化车辆电子装置间的通信，减少信号线的数量。</p>
-<ul>
-<li><strong>背景</strong>：消费者对汽车功能的需求日益增加，导致车内电子设备增多，传统点对点通信需要大量信号线。</li>
-<li><strong>解决方案</strong>：设计了一种 <strong>单一网络总线</strong>，所有电子设备共享一根总线通信。</li>
-<li><strong>标准化</strong>：1993 年，CAN 成为国际标准：<ul>
-<li>ISO 11898：高速应用</li>
-<li>ISO 11519：低速应用</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="帧类型"><a href="#帧类型" class="headerlink" title="帧类型"></a>帧类型</h2><p>CAN 通信中的帧分为以下几种类型：</p>
-<ol>
-<li><strong>数据帧</strong>：广播式发送，主动传输数据。</li>
-<li><strong>遥控帧</strong>：请求式发送，接收设备主动请求数据。</li>
-<li><strong>错误帧</strong>：设备检测到错误后，向总线发送的错误通知。</li>
-<li><strong>过载帧</strong>：接收设备未准备好时，通知发送设备延迟传输。</li>
-<li><strong>帧间隔</strong>：用于分隔帧，保证通信的规范性。</li>
-</ol>
-<hr>
-<h2 id="数据帧结构"><a href="#数据帧结构" class="headerlink" title="数据帧结构"></a>数据帧结构</h2><h3 id="标准格式"><a href="#标准格式" class="headerlink" title="标准格式"></a>标准格式</h3><h4 id="1-空闲状态"><a href="#1-空闲状态" class="headerlink" title="1. 空闲状态"></a>1. <strong>空闲状态</strong></h4><ul>
-<li><strong>隐性电平</strong>（由两个 120 欧姆终端电阻将总线拉至同一电平）。</li>
-</ul>
-<h4 id="2-帧起始（SOF）"><a href="#2-帧起始（SOF）" class="headerlink" title="2. 帧起始（SOF）"></a>2. <strong>帧起始（SOF）</strong></h4><ul>
-<li><strong>SOF（Start Of Frame）</strong>：1 位显性电平 <code>0</code>。</li>
-<li><strong>作用</strong>：打破总线的隐性电平状态，通知设备有消息即将发送。</li>
-</ul>
-<h4 id="3-仲裁段"><a href="#3-仲裁段" class="headerlink" title="3. 仲裁段"></a>3. <strong>仲裁段</strong></h4><ul>
-<li><strong>ID</strong>：11 位<ol>
-<li>表示报文的 ID 功能。</li>
-<li>决定优先级，ID 越小，优先级越高。</li>
-</ol>
-</li>
-<li><strong>RTR（远程发送请求）</strong>：1 位<ul>
-<li>显性 <code>0</code>：数据帧。</li>
-<li>隐性 <code>1</code>：遥控帧。</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-控制段"><a href="#4-控制段" class="headerlink" title="4. 控制段"></a>4. <strong>控制段</strong></h4><ul>
-<li><strong>IDE（标识符扩展位）</strong>：1 位<ul>
-<li><code>0</code>：标准帧。</li>
-<li><code>1</code>：扩展帧。</li>
-</ul>
-</li>
-<li><strong>r0（保留位）</strong>：1 位<ul>
-<li>为未来扩展预留，当前固定为显性 <code>0</code>。</li>
-</ul>
-</li>
-<li><strong>DLC（数据长度码）</strong>：4 位<ul>
-<li>表示数据域长度，范围为 0~8 字节。</li>
-</ul>
-</li>
-</ul>
-<h4 id="5-数据段"><a href="#5-数据段" class="headerlink" title="5. 数据段"></a>5. <strong>数据段</strong></h4><ul>
-<li>长度由 <strong>DLC</strong> 决定，最大为 8 字节。</li>
-</ul>
-<h4 id="6-CRC段"><a href="#6-CRC段" class="headerlink" title="6. CRC段"></a>6. <strong>CRC段</strong></h4><ul>
-<li>15 位，用于校验从 SOF 到数据段的完整性。</li>
-<li><strong>CRC界定符</strong>：1 位隐性电平。</li>
-</ul>
-<h4 id="7-ACK段"><a href="#7-ACK段" class="headerlink" title="7. ACK段"></a>7. <strong>ACK段</strong></h4><ul>
-<li><strong>ACK 槽</strong>：发送方释放总线，接收方若无错误，则发送显性 <code>0</code> 作为应答。</li>
-<li><strong>ACK 界定符</strong>：1 位隐性电平。</li>
-</ul>
-<h4 id="8-帧结束（EOF）"><a href="#8-帧结束（EOF）" class="headerlink" title="8. 帧结束（EOF）"></a>8. <strong>帧结束（EOF）</strong></h4><ul>
-<li>7 位隐性电平 <code>1</code>，标志帧结束。</li>
-</ul>
-<hr>
-<h3 id="波形特点"><a href="#波形特点" class="headerlink" title="波形特点"></a>波形特点</h3><ul>
-<li><strong>发送与接收同步</strong>：CAN 帧波形由发送方和接收方共同完成。接收方实时读取发送方的波形数据，而非等到帧发送完再读取。</li>
-<li><strong>实时性</strong>：这种同步机制保证了 CAN 的实时性能。</li>
-</ul>
-<hr>
-<h2 id="遥控帧"><a href="#遥控帧" class="headerlink" title="遥控帧"></a>遥控帧</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
-<li>无数据段。</li>
-<li><strong>RTR 位</strong>为隐性 <code>1</code>（数据帧的 RTR 为显性 <code>0</code>）。</li>
-<li>主动请求报文的方式适用于数据不频繁的场景。</li>
-</ol>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
-<li>当广播数据过于频繁会浪费总线资源，且广播过慢时接收方无法及时获取数据。</li>
-<li>请求方发送遥控帧，ID 表示请求的数据，响应方通过相同 ID 的数据帧反馈数据。</li>
-</ul>
-<hr>
-<h2 id="位填充规则"><a href="#位填充规则" class="headerlink" title="位填充规则"></a>位填充规则</h2><ul>
-<li>数据帧中，每连续 5 位相同电平后，自动插入 1 位相反电平。</li>
-<li><strong>作用</strong>：<ol>
-<li>防止长时间波形无变化，避免接收方误判。</li>
-<li>区分正常数据流与错误帧或过载帧。</li>
-<li>避免误识别为总线空闲状态。</li>
-</ol>
-</li>
-</ul>
-<hr>
-<p>补充：总线空闲指的是连续11个隐性电平，一般是ACK界定符+7为EOF+3位帧间隔</p>
-<h2 id="仲裁机制：非破坏性总线访问"><a href="#仲裁机制：非破坏性总线访问" class="headerlink" title="仲裁机制：非破坏性总线访问"></a>仲裁机制：非破坏性总线访问</h2><h3 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h3><ol>
-<li><strong>先到先得</strong>：总线空闲后，首先发起的设备占据总线。</li>
-<li><strong>非破坏性仲裁</strong>：优先级低的设备自动退出竞争。</li>
-</ol>
-<h3 id="仲裁规则"><a href="#仲裁规则" class="headerlink" title="仲裁规则"></a>仲裁规则</h3><ul>
-<li><strong>优先级顺序</strong>：<ol>
-<li>报文 ID 小 &gt; 报文 ID 大。</li>
-<li>标准帧 &gt; 扩展帧。</li>
-<li>数据帧 &gt; 遥控帧。</li>
-</ol>
-</li>
-</ul>
-<h3 id="回读机制"><a href="#回读机制" class="headerlink" title="回读机制"></a>回读机制</h3><ul>
-<li>仲裁期间，发送方通过回读自己的发送波形检测是否有冲突。若检测到较高优先级的设备发送数据，低优先级设备退出竞争。</li>
-</ul>
-<hr>
-<h2 id="帧间隔"><a href="#帧间隔" class="headerlink" title="帧间隔"></a>帧间隔</h2><ul>
-<li>每帧之间需至少包含 3 位隐性电平，用于分隔帧。</li>
-<li>帧间隔保证了帧的完整性和总线的稳定性。</li>
-</ul>
-<hr>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/11/17/hello-world/" rel="prev" title="CAN通信基础教程">
+      <i class="fa fa-chevron-left"></i> CAN通信基础教程
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -467,6 +292,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E9%85%8D%E5%92%8C%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D"><span class="nav-number">1.</span> <span class="nav-text">静态分配和动态分配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">宏定义</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
